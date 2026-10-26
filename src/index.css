@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root { color-scheme: light; }
+html { scroll-padding-top: 6rem; }
+body { margin: 0; min-width: 320px; }
+button, a, input, textarea { -webkit-tap-highlight-color: transparent; }
+button:focus-visible, a:focus-visible { outline: 3px solid #d49d00; outline-offset: 5px; }
+img { max-width: 100%; }
+
+.illustrated-section { isolation: isolate; }
+.illustrated-section__art { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.illustrated-section__image { width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+.illustrated-section__art--left .illustrated-section__image { object-position: left center; }
+/* The interactive art fills the section on desktop; its grid slot remains clear. */
+.unplug-grid { position: static; }
+.unplug-content { position: static; }
+.unplug-art { position: absolute; inset: 0; z-index: 0; }
+.unplug-grid > :not(.unplug-art) { position: relative; z-index: 1; }
+
+@media (max-width: 1023px) {
+  .illustrated-section {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+    padding: 0;
+    background: var(--illustration-tone);
+  }
+  .illustrated-section__content {
+    order: 0;
+    margin: 0 auto;
+    padding: 7.5rem clamp(1.5rem, 5vw, 3rem) 2.5rem;
+  }
+  .illustrated-section__content h1 { font-size: clamp(2.65rem, 10.8vw, 4.5rem); line-height: 1.02; }
+  .illustrated-section__content p { font-size: clamp(1rem, 3.8vw, 1.25rem); line-height: 1.65; max-width: 36rem; }
+  .illustrated-section__art {
+    position: relative;
+    inset: auto;
+    order: 1;
+    z-index: 0;
+    width: 100%;
+    height: clamp(18rem, 78vw, 34rem);
+    overflow: hidden;
+  }
+  .illustrated-section__image { display: block; }
+  .illustrated-section--narrative .illustrated-section__content { padding-top: 3.5rem; padding-bottom: 1.5rem; }
+  .illustrated-section--narrative .illustrated-section__art { height: clamp(20rem, 90vw, 38rem); }
+  .illustrated-section--narrative .illustrated-section__content h2 { font-size: clamp(2.3rem, 9vw, 3.75rem); }
+  /* Stack editorial copy around a dedicated scene, never over the child's face. */
+  .unplug-section { min-height: 0; background-color: #014f40 !important; }
+  .unplug-content { padding: 3rem 0 2.5rem; margin: 0; }
+  .unplug-grid { gap: 0; }
+  .unplug-grid > :not(.unplug-art) { padding-inline: clamp(1.5rem, 5vw, 3rem); }
+  .unplug-grid h2 { font-size: clamp(2.25rem, 8vw, 3.5rem); }
+  .unplug-grid p { font-size: 1rem; line-height: 1.7; color: #e6ece6; max-width: 34rem; }
+  .unplug-art { position: relative; width: 100%; height: clamp(21rem, 95vw, 40rem); min-height: 0; margin-block: 1.5rem 2rem; }
+  .unplug-control { padding-bottom: 2rem; }
+}
+
+@media (max-width: 639px) {
+  input, textarea, select { font-size: 16px !important; }
+  .home-hero { min-height: 44rem; min-height: 90svh; background-position: 65% bottom; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+@media (min-width: 1024px) {
+  .journal-hero .illustrated-section__content > div { max-width: 48%; }
+  .journal-hero h1 { font-size: clamp(3.5rem, 7vw, 7.375rem); }
+}
+
+@media (max-width: 1023px) {
+  .illustrated-section__art::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto;
+    height: 2.5rem;
+    background: linear-gradient(var(--illustration-tone), transparent);
+  }
+}
+
+@media (max-width: 639px) {
+  .day-metrics { gap: 0.5rem; }
+  .day-metrics > div { min-width: 0; padding: 1rem 0.35rem; }
+  .day-metrics > div > span:first-child { font-size: clamp(1rem, 4vw, 1.5rem); white-space: nowrap; }
+}
+
+@media (max-width: 1023px) {
+  .unplug-art::before, .unplug-art::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    height: 2rem;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .unplug-art::before { top: 0; background: linear-gradient(#014f40, transparent); }
+  .unplug-art::after { bottom: 0; background: linear-gradient(transparent, #014f40); }
+}
